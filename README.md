@@ -1,2 +1,3 @@
 # js-template
-readme
+Battleship
+[Assignment](https://www.theodinproject.com/lessons/node-path-javascript-battleship)
