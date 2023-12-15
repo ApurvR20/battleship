@@ -111,11 +111,40 @@ test(`Pre-hit coordinates, ship or otherwise can't be hit`,()=>{
     expect(testBoard.receiveAttack(3,3)).toBe(false)
 })
 
-test(`receiveAttack `)
+test(`receiveAttack determines that miss is updated properly`,()=>{
+    expect(testBoard.receiveAttack(0,0)).toStrictEqual(testBoard.watchMiss());
+})
 
-// // test('Testing receiveAttack hit',()=>{
-// //     expect(testBoard.receiveAttack(5,1)).toBe(testBoard.);
-// // })
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 x - - - - - - - - -
+// 1 - - - - - - - - - -
+// 2 - - - - - - - - - -
+// 3 - - - x o o - o - -
+// 4 - - - - - - - o - -
+// 5 - - - - - - - - - -
+// 6 - - - - - - - - - -
+// 7 - - - - - - - - - -
+// 8 - - - - - - - - - -
+// 9 - - - - - - - - - -
+
+// testing sink before everything is sunk
+test(`allSunk properly reports float/sink status`,()=>{
+
+    let float = testBoard.allSunk();// should be false
+
+    const locations = [[3,4],[3,5],[0,0],[2,4],[3,7],[8,9],[4,7],[0,9]];
+    let count = 0;
+    const bombed = [];
+    while(!float)
+    {
+        testBoard.receiveAttack(locations[count][0],locations[count][1]);
+        float = testBoard.allSunk();
+        bombed.push(locations[count]);
+        count+=1;
+    }
+
+    expect(bombed).toEqual( [[3,4],[3,5],[0,0],[2,4],[3,7],[8,9],[4,7]]);
+})
 
 // // test('Testing receiveAttack miss', ()=> {
 // //     expect(testBoard.receiveAttack(4,1)).toStrictEqual([4,1]);

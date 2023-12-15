@@ -3,7 +3,7 @@ const Gameboard = () => {
 
     const board = [];
     const misses = [];
-    const locations = [];
+    const ships = [];
 
     // create the grid for the board
     for(let i = 0;i < 10; i+=1)
@@ -36,7 +36,7 @@ const Gameboard = () => {
 
             if(flag)
             {
-                locations.push([row,col])
+                ships.push(ship)
                 for(i = row;i < row+len;i+=1)
                 {
                     board[i][col] = ship;
@@ -54,7 +54,7 @@ const Gameboard = () => {
 
             if(flag)
             {
-                locations.push([row,col]);
+                ships.push(ship);
                 for(j = col;j < col+len;j+=1)
                 {
                     board[row][j] = ship;
@@ -70,7 +70,7 @@ const Gameboard = () => {
         let res;
 
         if(board[row][col] === -1)
-        res = false;
+        {res = false;}
         else if(board[row][col] === 0)
         {
             misses.push([row,col])
@@ -86,11 +86,12 @@ const Gameboard = () => {
         return res;
     };
 
-    const reportStatus = () => locations.every(([row,col]) => board[row][col].isSunk());
+    const watchMiss = () => misses[misses.length-1];
 
+    const allSunk = () => ships.every((ship) => ship.isSunk());
     // test reportStatus
 
-    return {placeShip,receiveAttack, reportStatus};
+    return {placeShip,receiveAttack, allSunk, watchMiss};
 }
 
 export default Gameboard;
