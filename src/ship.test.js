@@ -1,5 +1,7 @@
 import Ship from "./ship";
 import Gameboard from "./gameboard";
+import Player from "./Player";
+import Computer from "./Computer";
 
 const testObj = Ship(5);
 
@@ -92,7 +94,7 @@ test(`Ship isn't placed if it goes out of bounds`,()=>{
 
 // Receive length of the ship that is hit
 test(`receiveAttack determines that the correct ship is hit`,()=>{
-    expect(testBoard.receiveAttack(3,3)).toBe(3);
+    expect(testBoard.receiveAttack(3,3)).toBe(true);
 })
 
 //   0 1 2 3 4 5 6 7 8 9 
@@ -124,7 +126,7 @@ test(`receiveAttack determines that miss is updated properly`,()=>{
 // 5 - - - - - - - - - -
 // 6 - - - - - - - - - -
 // 7 - - - - - - - - - -
-// 8 - - - - - - - - - -
+// 8 - - - - - - - - - -board[row][col].length
 // 9 - - - - - - - - - -
 
 // testing sink before everything is sunk
@@ -146,6 +148,44 @@ test(`allSunk properly reports float/sink status`,()=>{
     expect(bombed).toEqual( [[3,4],[3,5],[0,0],[2,4],[3,7],[8,9],[4,7]]);
 })
 
-// // test('Testing receiveAttack miss', ()=> {
-// //     expect(testBoard.receiveAttack(4,1)).toStrictEqual([4,1]);
-// // })
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 x - - - - - - - - -
+// 1 - - - - - - - - - -
+// 2 - - - - x - - - - -
+// 3 - - - x x x - x - -
+// 4 - - - - - - - x - -
+// 5 - - - - - - - - - -
+// 6 - - - - - - - - - -
+// 7 - - - - - - - - - -
+// 8 - - - - - - - - - x
+// 9 - - - - - - - - - -
+
+// Player has a gameboard
+test(`Player has a playerBoard`,()=>{
+
+    const player = new Player();
+    expect(Object.hasOwn(player.playerBoard,'placeShip')).toBe(true);
+})
+
+test(`Computer has a computerBoard`,()=>{
+
+    const computer = new Computer();
+    expect(Object.hasOwn(computer.computerBoard,'placeShip')).toBe(true);
+})
+
+// Computer can make random moves accurately
+test(`Player and Computer can attack each other`,() =>{
+    
+    const player = new Player();
+    const computer = new Player();
+    player.placeShip(Ship(3),3,3,'v');
+    computer.placeShip(Ship(3),3,3,'v');
+    /* player.attack(computer,(3,3)) == computer.watchHits() */
+    expect(
+        player.attack(computer,(3,3)) === computer.watchHits() &&
+        player.attack(computer,(3,3)) === computer.watchHits() &&
+        ).toBe(true);
+
+
+})
+

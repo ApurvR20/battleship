@@ -78,7 +78,7 @@ const Gameboard = () => {
         }
         else 
         {
-            res = board[row][col].length;
+            res = true;
             board[row][col].hit();
         }
         board[row][col] = -1;
