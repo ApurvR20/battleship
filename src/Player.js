@@ -1,9 +1,22 @@
 import Gameboard from "./gameboard";
 
-const Player = () => {
+const Player = (receiveAttack) => {
+
+
+    const prevAttacks = [];
+    const attack = (row,col) => {
+
+        if(prevAttacks.includes((row,col)))
+        return false;
+
+        
+
+
+    }
     const playerBoard = Gameboard();
 
-    return {playerBoard};
+    return {playerBoard, attack};
+
 }
 
 export default Player;

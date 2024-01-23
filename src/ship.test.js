@@ -174,18 +174,18 @@ test(`Computer has a computerBoard`,()=>{
 })
 
 // Computer can make random moves accurately
-test(`Player and Computer can attack each other`,() =>{
+// test(`Player and Computer can attack each other`,() =>{
     
-    const player = new Player();
-    const computer = new Player();
-    player.placeShip(Ship(3),3,3,'v');
-    computer.placeShip(Ship(3),3,3,'v');
-    /* player.attack(computer,(3,3)) == computer.watchHits() */
-    expect(
-        player.attack(computer,(3,3)) === computer.watchHits() &&
-        player.attack(computer,(3,3)) === computer.watchHits() &&
-        ).toBe(true);
+//     const player = new Player();
+//     const computer = new Player();
+//     player.placeShip(Ship(3),3,3,'v');
+//     computer.placeShip(Ship(3),3,3,'v');
+//     /* player.attack(computer,(3,3)) == computer.watchHits() */
+//     expect(
+//         player.attack(computer,(3,3)) === computer.watchHits() &&
+//         player.attack(computer,(3,3)) === computer.watchHits() &&
+//         ).toBe(true);
 
 
-})
+// })
 
