@@ -8,7 +8,6 @@ const Player = () => {
 
         if(prevAttacks.includes((row,col)))
         return false;
-
         
 
 
