@@ -161,31 +161,57 @@ test(`allSunk properly reports float/sink status`,()=>{
 // 9 - - - - - - - - - -
 
 // Player has a gameboard
-test(`Player has a playerBoard`,()=>{
+const player = Player();
+const computer = Computer();
+const master = gameMaster(player.receiveAttack(),computer.receiveAttack());
 
-    const player = new Player();
+test(`Player has a playerBoard`,()=>{
     expect(Object.hasOwn(player.playerBoard,'placeShip')).toBe(true);
 })
 
 test(`Computer has a computerBoard`,()=>{
-
-    const computer = new Computer();
     expect(Object.hasOwn(computer.computerBoard,'placeShip')).toBe(true);
 })
 
-// Computer can make random moves accurately
-// test(`Player and Computer can attack each other`,() =>{
-    
-//     const player = new Player();
-//     const computer = new Player();
-//     player.placeShip(Ship(3),3,3,'v');
-//     computer.placeShip(Ship(3),3,3,'v');
-//     /* player.attack(computer,(3,3)) == computer.watchHits() */
-//     expect(
-//         player.attack(computer,(3,3)) === computer.watchHits() &&
-//         player.attack(computer,(3,3)) === computer.watchHits() &&
-//         ).toBe(true);
+player.placeShip(Ship(3),3,5,'h');
+computer.placeShip(Ship(4),0,2,'v');
+
+// player calls gamemaster and makes attack
+
+test(`Player can attack`)
 
 
-// })
+// playerBoard
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 - - - - - - - - - -
+// 1 - - - - - - - - - -
+// 2 - - - - - - - - - -
+// 3 - - - - - o o o - -
+// 4 - - - - - - - - - -
+// 5 - - - - - - - - - -
+// 6 - - - - - - - - - -
+// 7 - - - - - - - - - -
+// 8 - - - - - - - - - -
+// 9 - - - - - - - - - -
+
+// computerBoard
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 - - o - - - - - - -
+// 1 - - o - - - - - - -
+// 2 - - o - - - - - - -
+// 3 - - o - - - - - - -
+// 4 - - - - - - - - - -
+// 5 - - - - - - - - - -
+// 6 - - - - - - - - - -
+// 7 - - - - - - - - - -
+// 8 - - - - - - - - - -
+// 9 - - - - - - - - - -
+
+
+// gameMaster properly allows the player and computer to attack each other
+test(`gameMaster properly allows the player and computer to attack each other`, () =>{
+
+
+
+})
 

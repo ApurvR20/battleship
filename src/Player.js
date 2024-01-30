@@ -1,6 +1,6 @@
 import Gameboard from "./gameboard";
 
-const Player = (receiveAttack) => {
+const Player = () => {
 
 
     const prevAttacks = [];
@@ -15,7 +15,7 @@ const Player = (receiveAttack) => {
     }
     const playerBoard = Gameboard();
 
-    return {playerBoard, attack};
+    return {...playerBoard, attack};
 
 }
 
