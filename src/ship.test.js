@@ -1,7 +1,6 @@
 import Ship from "./ship";
 import Gameboard from "./gameboard";
-import Player from "./Player";
-import Computer from "./Computer";
+import {player,computer,playShipPlacer, compShipPlacer} from "./gameController";
 
 const testObj = Ship(5);
 
@@ -94,7 +93,7 @@ test(`Ship isn't placed if it goes out of bounds`,()=>{
 
 // Receive length of the ship that is hit
 test(`receiveAttack determines that the correct ship is hit`,()=>{
-    expect(testBoard.receiveAttack(3,3)).toBe(true);
+    expect(testBoard.receiveAttack(3,3)).toBe('hit');
 })
 
 //   0 1 2 3 4 5 6 7 8 9 
@@ -110,11 +109,11 @@ test(`receiveAttack determines that the correct ship is hit`,()=>{
 // 9 - - - - - - - - - -
 
 test(`Pre-hit coordinates, ship or otherwise can't be hit`,()=>{
-    expect(testBoard.receiveAttack(3,3)).toBe(false)
+    expect(testBoard.receiveAttack(3,3)).toBe('prehit')
 })
 
 test(`receiveAttack determines that miss is updated properly`,()=>{
-    expect(testBoard.receiveAttack(0,0)).toStrictEqual(testBoard.watchMiss());
+    expect(testBoard.receiveAttack(0,0)).toBe('miss');
 })
 
 //   0 1 2 3 4 5 6 7 8 9 
@@ -126,7 +125,7 @@ test(`receiveAttack determines that miss is updated properly`,()=>{
 // 5 - - - - - - - - - -
 // 6 - - - - - - - - - -
 // 7 - - - - - - - - - -
-// 8 - - - - - - - - - -board[row][col].length
+// 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
 // testing sink before everything is sunk
@@ -148,45 +147,36 @@ test(`allSunk properly reports float/sink status`,()=>{
     expect(bombed).toEqual( [[3,4],[3,5],[0,0],[2,4],[3,7],[8,9],[4,7]]);
 })
 
+// gameController testing from now
+
+// gameController properly makes Player and Computer boards
+test(`gameController properly makes Player and Computer boards`, ()=>{
+    expect(Object.hasOwn(player,'placeShip') && Object.hasOwn(computer,'placeShip')).toBe(true);
+})
+
+// place ships for computer
 //   0 1 2 3 4 5 6 7 8 9 
 // 0 x - - - - - - - - -
 // 1 - - - - - - - - - -
-// 2 - - - - x - - - - -
-// 3 - - - x x x - x - -
-// 4 - - - - - - - x - -
+// 2 - - - - - - - - - -
+// 3 - - - - - - - - - -
+// 4 - - - - - - - - - -
 // 5 - - - - - - - - - -
 // 6 - - - - - - - - - -
 // 7 - - - - - - - - - -
-// 8 - - - - - - - - - x
+// 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-// Player has a gameboard
-const player = Player();
-const computer = Computer();
-const master = gameMaster(player.receiveAttack(),computer.receiveAttack());
-
-test(`Player has a playerBoard`,()=>{
-    expect(Object.hasOwn(player.playerBoard,'placeShip')).toBe(true);
+test(`gameController can properly place ships for computer`,() => {
+    
 })
 
-test(`Computer has a computerBoard`,()=>{
-    expect(Object.hasOwn(computer.computerBoard,'placeShip')).toBe(true);
-})
-
-player.placeShip(Ship(3),3,5,'h');
-computer.placeShip(Ship(4),0,2,'v');
-
-// player calls gamemaster and makes attack
-
-test(`Player can attack`)
-
-
-// playerBoard
+// place ships for player
 //   0 1 2 3 4 5 6 7 8 9 
-// 0 - - - - - - - - - -
+// 0 x - - - - - - - - -
 // 1 - - - - - - - - - -
 // 2 - - - - - - - - - -
-// 3 - - - - - o o o - -
+// 3 - - - - - - - - - -
 // 4 - - - - - - - - - -
 // 5 - - - - - - - - - -
 // 6 - - - - - - - - - -
@@ -194,24 +184,13 @@ test(`Player can attack`)
 // 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-// computerBoard
-//   0 1 2 3 4 5 6 7 8 9 
-// 0 - - o - - - - - - -
-// 1 - - o - - - - - - -
-// 2 - - o - - - - - - -
-// 3 - - o - - - - - - -
-// 4 - - - - - - - - - -
-// 5 - - - - - - - - - -
-// 6 - - - - - - - - - -
-// 7 - - - - - - - - - -
-// 8 - - - - - - - - - -
-// 9 - - - - - - - - - -
+test(`gameController can properly place ships in player`)
 
-
-// gameMaster properly allows the player and computer to attack each other
-test(`gameMaster properly allows the player and computer to attack each other`, () =>{
+// place ships for computer
 
 
 
-})
+// player can attack computer correctly
+
+// computer can attack player correctly
 

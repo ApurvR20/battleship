@@ -70,15 +70,15 @@ const Gameboard = () => {
         let res;
 
         if(board[row][col] === -1)
-        {res = false;}
+        {res = 'prehit';}
         else if(board[row][col] === 0)
         {
             misses.push([row,col])
-            res = [row,col];
+            res = 'miss';
         }
         else 
         {
-            res = true;
+            res = 'hit';
             board[row][col].hit();
         }
         board[row][col] = -1;
