@@ -168,7 +168,7 @@ test(`gameController properly makes Player and Computer boards`, ()=>{
 // 9 - - - - - - - - - -
 
 test(`gameController can properly place ships for computer`,() => {
-    
+    const count = {'5' : 5, '4' : 4, '3' : 6, '2' : 2};
 })
 
 // place ships for player
@@ -184,10 +184,8 @@ test(`gameController can properly place ships for computer`,() => {
 // 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-test(`gameController can properly place ships in player`)
-
 // place ships for computer
-
+test(`gameController can properly place ships in computer`)
 
 
 // player can attack computer correctly
