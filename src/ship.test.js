@@ -169,6 +169,17 @@ test(`gameController properly makes Player and Computer boards`, ()=>{
 
 test(`gameController can properly place ships for computer`,() => {
     const count = {'5' : 5, '4' : 4, '3' : 6, '2' : 2};
+    compShipPlacer();
+    const res = {'5' : 0, '4' : 0, '3' : 0, '2' : 0};
+
+    for(const i = 0; i < 10; i+=1)
+    {
+        for(const j = 0; j < 10; j+=1)
+        {
+            l
+        }
+    }
+
 })
 
 // place ships for player

@@ -21,6 +21,14 @@ const Computer = () => {
             }
         }
         )
+
+        // for(const i = 0; i < 10; i+=1)
+        // {
+        // for(const j = 0; j < 10; j+=1)
+        // {
+            
+        // }
+        // }
     }
 
 
