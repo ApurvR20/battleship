@@ -1,6 +1,7 @@
 import Ship from "./ship";
 import Gameboard from "./gameboard";
 import {player,computer,playShipPlacer, compShipPlacer} from "./gameController";
+import Computer from "./Computer";
 
 const testObj = Ship(5);
 
@@ -167,19 +168,21 @@ test(`gameController properly makes Player and Computer boards`, ()=>{
 // 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-test(`gameController can properly place ships for computer`,() => {
-    const count = {'5' : 5, '4' : 4, '3' : 6, '2' : 2};
-    compShipPlacer();
-    const res = {'5' : 0, '4' : 0, '3' : 0, '2' : 0};
+test(`Computer can properly place ships`,() => {
 
-    for(const i = 0; i < 10; i+=1)
+    const computer = Computer();
+    computer.compShipPlacer();
+    let hitCount = 0;
+    for(let i = 0; i < 10; i+=1)
     {
-        for(const j = 0; j < 10; j+=1)
+        for(let j = 0; j < 10; j+=1)
         {
-            l
+            const res = computer.receiveAttack(i,j);
+            if(res === 'hit') hitCount+=1;
         }
     }
 
+    expect(hitCount).toBe(17);
 })
 
 // place ships for player
@@ -196,7 +199,7 @@ test(`gameController can properly place ships for computer`,() => {
 // 9 - - - - - - - - - -
 
 // place ships for computer
-test(`gameController can properly place ships in computer`)
+// test(`gameController can properly place ships in computer`)
 
 
 // player can attack computer correctly

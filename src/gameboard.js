@@ -89,8 +89,6 @@ const Gameboard = () => {
     const watchMiss = () => misses[misses.length-1];
 
     const allSunk = () => ships.every((ship) => ship.isSunk());
-    // test reportStatus
-
     return {placeShip,receiveAttack, allSunk, watchMiss};
 }
 
