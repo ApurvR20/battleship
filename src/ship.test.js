@@ -1,6 +1,6 @@
 import Ship from "./ship";
 import Gameboard from "./gameboard";
-import {player,computer,playShipPlacer, compShipPlacer} from "./gameController";
+import gameController from "./gameController";
 import Computer from "./Computer";
 
 const testObj = Ship(5);
@@ -148,30 +148,9 @@ test(`allSunk properly reports float/sink status`,()=>{
     expect(bombed).toEqual( [[3,4],[3,5],[0,0],[2,4],[3,7],[8,9],[4,7]]);
 })
 
-// gameController testing from now
-
-// gameController properly makes Player and Computer boards
-test(`gameController properly makes Player and Computer boards`, ()=>{
-    expect(Object.hasOwn(player,'placeShip') && Object.hasOwn(computer,'placeShip')).toBe(true);
-})
-
-// place ships for computer
-//   0 1 2 3 4 5 6 7 8 9 
-// 0 x - - - - - - - - -
-// 1 - - - - - - - - - -
-// 2 - - - - - - - - - -
-// 3 - - - - - - - - - -
-// 4 - - - - - - - - - -
-// 5 - - - - - - - - - -
-// 6 - - - - - - - - - -
-// 7 - - - - - - - - - -
-// 8 - - - - - - - - - -
-// 9 - - - - - - - - - -
-
 test(`Computer can properly place ships`,() => {
 
     const computer = Computer();
-    computer.compShipPlacer();
     let hitCount = 0;
     for(let i = 0; i < 10; i+=1)
     {
@@ -185,24 +164,91 @@ test(`Computer can properly place ships`,() => {
     expect(hitCount).toBe(17);
 })
 
-// place ships for player
+// gameController testing from now
+
+const controller = gameController();
+test(`gameController properly makes Player and Computer boards`, ()=>{
+    expect(Object.hasOwn(controller.player,'placeShip') && Object.hasOwn(controller.computer,'placeShip')).toBe(true);
+})
+
+test(`gameController can properly place ships in player`, () =>{
+
+    controller.playShipPlacer(4,3,2,'v');
+
 //   0 1 2 3 4 5 6 7 8 9 
-// 0 x - - - - - - - - -
+// 0 - - - - - - - - - -
 // 1 - - - - - - - - - -
 // 2 - - - - - - - - - -
-// 3 - - - - - - - - - -
-// 4 - - - - - - - - - -
-// 5 - - - - - - - - - -
-// 6 - - - - - - - - - -
+// 3 - - o - - - - - - -
+// 4 - - o - - - - - - -
+// 5 - - o - - - - - - -
+// 6 - - o - - - - - - -
 // 7 - - - - - - - - - -
 // 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-// place ships for computer
-// test(`gameController can properly place ships in computer`)
+const res = [
+    controller.compAttack(2,2),
+    controller.compAttack(3,2),
+    controller.compAttack(4,2),
+    controller.compAttack(5,2),
+    controller.compAttack(6,2),
+    controller.compAttack(7,2)
+];
+   
+    expect(res).toEqual(['miss','hit','hit','hit','hit','miss']);
+})
 
+test(`Player can attack Computer`, ()=> {
 
-// player can attack computer correctly
+    expect(['hit','miss']).toContain(controller.playAttack(0,0));
+    expect(controller.playAttack(0,0)).toBe('prehit');
+})
 
-// computer can attack player correctly
+test(`Computer can attack Player` ,() => {
+
+// Player
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 - - - - - - - - - -
+// 1 - - - - o o o - - -
+// 2 - - x - - - - - - -
+// 3 - - x - - - - - - -
+// 4 - - x - - - - - - -
+// 5 - - x - - - - - - -
+// 6 - - x - - - - - - -
+// 7 - - x - - - - - - -
+// 8 - - - - - - - - - -
+// 9 - - - - - - - - - -
+
+    controller.playShipPlacer(3,1,4,'h');
+    const res = [
+        controller.compAttack(1,3),
+        controller.compAttack(1,4),
+        controller.compAttack(1,5),
+        controller.compAttack(1,6),
+        controller.compAttack(1,7),
+        controller.compAttack(7,2)];
+       
+        expect(res).toEqual(['miss','hit','hit','hit','miss','prehit']);
+})
+
+test(`Computer does not attack out-of-bounds or same spot twice`,() => {
+
+    // Player
+//   0 1 2 3 4 5 6 7 8 9 
+// 0 - - - - - - - - - -
+// 1 - - - x x x x x - -
+// 2 - - x - - - - - - -
+// 3 - - x - - - - - - -
+// 4 - - x - - - - - - -
+// 5 - - x - - - - - - -
+// 6 - - x - - - - - - -
+// 7 - - x - - - - - - -
+// 8 - - - - - - - - - -
+// 9 - - - - - - - - - -
+
+expect(controller.compAttack(1,-1)).toBe('invalid');
+expect(controller.compAttack(1,3)).toBe('invalid');
+expect(controller.compAttack()).toBe('valid');
+})
 

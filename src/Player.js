@@ -1,19 +1,19 @@
 import Gameboard from "./gameboard";
 const Player = () => {
 
-    const prevAttacks = [];
-    const attack = (row,col) => {
+    // const prevAttacks = [];
+    // const attack = (row,col) => {
 
-        if(prevAttacks.includes((row,col)))
-        return false;
+    //     if(prevAttacks.includes((row,col)))
+    //     return false;
 
-        prevAttacks.push([row,col]);
-        return receiveAttack(row,col);
-    }
+    //     prevAttacks.push([row,col]);
+    //     return receiveAttack(row,col);
+    // }
 
     const playerBoard = Gameboard();
 
-    return {...playerBoard, attack};
+    return {...playerBoard};
 }
 
 export default Player;
