@@ -19,7 +19,9 @@ const Computer = () => {
         }
     })
 
-    return {...computerBoard};
+    const targetGen = () => ([Math.floor(Math.random()*10), Math.floor(Math.random()*10)]);
+
+    return {...computerBoard,targetGen};
 }
 
 export default Computer;

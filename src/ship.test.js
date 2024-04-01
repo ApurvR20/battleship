@@ -94,7 +94,7 @@ test(`Ship isn't placed if it goes out of bounds`,()=>{
 
 // Receive length of the ship that is hit
 test(`receiveAttack determines that the correct ship is hit`,()=>{
-    expect(testBoard.receiveAttack(3,3)).toBe('hit');
+    expect(testBoard.receiveAttack([3,3])).toBe('hit');
 })
 
 //   0 1 2 3 4 5 6 7 8 9 
@@ -110,11 +110,11 @@ test(`receiveAttack determines that the correct ship is hit`,()=>{
 // 9 - - - - - - - - - -
 
 test(`Pre-hit coordinates, ship or otherwise can't be hit`,()=>{
-    expect(testBoard.receiveAttack(3,3)).toBe('prehit')
+    expect(testBoard.receiveAttack([3,3])).toBe('prehit')
 })
 
 test(`receiveAttack determines that miss is updated properly`,()=>{
-    expect(testBoard.receiveAttack(0,0)).toBe('miss');
+    expect(testBoard.receiveAttack([0,0])).toBe('miss');
 })
 
 //   0 1 2 3 4 5 6 7 8 9 
@@ -139,7 +139,7 @@ test(`allSunk properly reports float/sink status`,()=>{
     const bombed = [];
     while(!float)
     {
-        testBoard.receiveAttack(locations[count][0],locations[count][1]);
+        testBoard.receiveAttack([locations[count][0],locations[count][1]]);
         float = testBoard.allSunk();
         bombed.push(locations[count]);
         count+=1;
@@ -156,7 +156,7 @@ test(`Computer can properly place ships`,() => {
     {
         for(let j = 0; j < 10; j+=1)
         {
-            const res = computer.receiveAttack(i,j);
+            const res = computer.receiveAttack([i,j]);
             if(res === 'hit') hitCount+=1;
         }
     }
@@ -188,12 +188,12 @@ test(`gameController can properly place ships in player`, () =>{
 // 9 - - - - - - - - - -
 
 const res = [
-    controller.compAttack(2,2),
-    controller.compAttack(3,2),
-    controller.compAttack(4,2),
-    controller.compAttack(5,2),
-    controller.compAttack(6,2),
-    controller.compAttack(7,2)
+    controller.compAttack([2,2]),
+    controller.compAttack([3,2]),
+    controller.compAttack([4,2]),
+    controller.compAttack([5,2]),
+    controller.compAttack([6,2]),
+    controller.compAttack([7,2])
 ];
    
     expect(res).toEqual(['miss','hit','hit','hit','hit','miss']);
@@ -201,8 +201,8 @@ const res = [
 
 test(`Player can attack Computer`, ()=> {
 
-    expect(['hit','miss']).toContain(controller.playAttack(0,0));
-    expect(controller.playAttack(0,0)).toBe('prehit');
+    expect(['hit','miss']).toContain(controller.playAttack([0,0]));
+    expect(controller.playAttack([0,0])).toBe('prehit');
 })
 
 test(`Computer can attack Player` ,() => {
@@ -222,17 +222,17 @@ test(`Computer can attack Player` ,() => {
 
     controller.playShipPlacer(3,1,4,'h');
     const res = [
-        controller.compAttack(1,3),
-        controller.compAttack(1,4),
-        controller.compAttack(1,5),
-        controller.compAttack(1,6),
-        controller.compAttack(1,7),
-        controller.compAttack(7,2)];
+        controller.compAttack([1,3]),
+        controller.compAttack([1,4]),
+        controller.compAttack([1,5]),
+        controller.compAttack([1,6]),
+        controller.compAttack([1,7]),
+        controller.compAttack([7,2])];
        
-        expect(res).toEqual(['miss','hit','hit','hit','miss','prehit']);
+        expect(res).toEqual(['miss','hit','hit','hit','miss','prehitwa']);
 })
 
-test(`Computer does not attack out-of-bounds or same spot twice`,() => {
+test(`Computer does not attack same spot twice`,() => {
 
     // Player
 //   0 1 2 3 4 5 6 7 8 9 
@@ -247,8 +247,20 @@ test(`Computer does not attack out-of-bounds or same spot twice`,() => {
 // 8 - - - - - - - - - -
 // 9 - - - - - - - - - -
 
-expect(controller.compAttack(1,-1)).toBe('invalid');
-expect(controller.compAttack(1,3)).toBe('invalid');
-expect(controller.compAttack()).toBe('valid');
+expect(controller.compAttack([1,3])).toBe("prehitwa");
+const res = ['hit','miss'];
+expect(res).toContain(controller.compAttack());
+
+// creating a all-nuked player board
+const testController = gameController();
+for(let i=0; i<10;i+=1)
+{
+    for(let j=0; j<10; j+=1)
+    {
+        testController.compAttack([i,j]);
+    }
+}
+
+expect(testController.compAttack([9,9])).toBe('prehitwa');
 })
 

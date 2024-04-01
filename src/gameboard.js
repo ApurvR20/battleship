@@ -65,7 +65,7 @@ const Gameboard = () => {
         return flag;
     }
 
-    const receiveAttack = (row,col) => {
+    const receiveAttack = ([row,col]) => {
 
         let res;
 
