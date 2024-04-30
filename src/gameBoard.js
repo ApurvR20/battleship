@@ -1,5 +1,5 @@
 
-const Gameboard = () => {
+const gameBoard = () => {
 
     const board = [];
     const misses = [];
@@ -89,7 +89,8 @@ const Gameboard = () => {
     const watchMiss = () => misses[misses.length-1];
 
     const allSunk = () => ships.every((ship) => ship.isSunk());
-    return {placeShip,receiveAttack, allSunk, watchMiss};
+    const checkShip = (i,j) => board[i][j] !== 0;
+    return {placeShip,receiveAttack, allSunk, watchMiss,checkShip};
 }
 
-export default Gameboard;
+export default gameBoard;

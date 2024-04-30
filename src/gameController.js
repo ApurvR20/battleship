@@ -2,8 +2,6 @@ import Player from "./Player";
 import Computer from "./Computer";
 import Ship from "./ship";
 
-
-
 const gameController = () =>
 {   
     const player = Player();

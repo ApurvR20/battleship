@@ -1,0 +1,41 @@
+html{
+    height: 100%;
+}
+
+#ui{
+    height: 100%;
+}
+
+#topbar{
+    height: 100px;
+    width: 100px;
+    font-size: large;
+    color: black;
+}
+
+#boardScreens{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.board{
+    display: grid;
+    width: 300px;
+    height: 300px;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    border : 1px solid gray;
+}
+
+.cell{
+    border: 1px solid gray;
+    display: flex;
+    height: auto;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.ship{
+    background-color: #85b8eb;
+}
